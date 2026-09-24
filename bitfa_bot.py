@@ -109,11 +109,12 @@ def plugin_rsi_momentum(ohlcv: pd.DataFrame) -> float:
     return max(0.0, min(1.0, (rsi - 30) / 50))
 
 
-# وزن‌های نهایی که در کالیبراسیون Colab به‌دست اومد (رابطه‌ی سطلی: پایین=~3%, متوسط=~35%, بالا=~50%)
+# وزن‌های نهایی -- کالیبره‌شده روی ۹۷ نمونه‌ی تاریخی از export کامل کانال (نه فقط ۴۴-۷۲ تا)
+# نتیجه: پایین(<40)=~2%, متوسط(40-60)=~26%, بالا(>60)=~47% -- RSI به‌تنهایی قوی‌ترین سیگنال بود
 PLUGINS = {
-    "trend_break": (plugin_trend_break, 0.3),
-    "volume_spike": (plugin_volume_spike, 0.2),
-    "rsi": (plugin_rsi_momentum, 0.5),
+    "trend_break": (plugin_trend_break, 0.15),
+    "volume_spike": (plugin_volume_spike, 0.15),
+    "rsi": (plugin_rsi_momentum, 0.70),
     # اینجا بعداً FVG / ICT / Ichimoku / Smart Money اضافه می‌شه:
     # "fvg": (plugin_fvg, 0.0),
 }
